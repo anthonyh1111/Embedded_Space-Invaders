@@ -5,8 +5,6 @@ Table of Contents
   - [Grand Challenge 1: Space Invaders Controller](#grand-challenge-1-space-invaders-controller)
     - [Implementations of 3 improvements and 3 features](#implementations-of-3-improvements-and-3-features)
     - [Using the Controller](#using-the-controller)
-  - [Grand Challenge 2: Guitar Tuner](#grand-challenge-2-guitar-tuner)
-  - [Collaborators](#collaborators)
 
 
 A socket-based controller for Space Invaders to controller the game wirelessly with the ESP32.
@@ -42,21 +40,6 @@ Second, to implement the improvements I used a moving average filter to smooth t
 Although the controller isn't perfect, to use the controller you would hold it horizontally and apply a slight tilt upwards for more accurate movement. You would need to implement a button, OLED, photodetector, accelerometer, to your adafeather. For firing you would tap on the photosensor, for movement you would tilt the board left and right, for sensitivity you would cycle through the button with 1 being the lowest and 3 being the highest, and for rapid firing just tap as fast as you can/ hold your finger on the accelerometer . 
 
 [video of controller](https://youtu.be/R6F89TPE4mo) 
-
-## Grand Challenge 2: Guitar Tuner
-In this challenge, we had the creative freedom to do whatever we saw fit for our final project. This project needed to address a problem that we had in our lives, and of course needed to utilize the MCU in some kind of way. The problem I wanted to address was tuning in noisy enviroments. My roommates are often causing a ruckus, and tuning in these enviroments is not ideal. Because tuning with my phone uses the mic, it's prone to picking up other noises making my readings less accurate. In addition if i'm tuning my electric guitar acoustically, alot of the times the sound is so weak, the phone mic won't even be able to pick it up. This is why I decided to create my own tuner, that would check the signal of the guitar to determine if it was in tune or not. Nothing grinds everybodys ears more than when notes are out of tune, it just sounds terrible, and unprofessional. The intended users of my device are electric guitar and bass players.
-
-I decided that I wanted to transmit the signal of the guitar into the MCU, and send the data over to Python where I would then calculate the frequency thats being played. We needed to create a preamplifier circuit that would magnify the approx 40mV signal of the guitar, and bias it to 1.6V because the arudino can only read from 0-3.3V. We also added a buffer circuit to impedance match the high impedance output of the guitar to the low impedance of the MCU.
-Initially My plan was to send the data over to Python, where A circular list would be waiting to proccess it live. The problem with this approach was that the maximum freqeuncy that we were able to achieve was sad. We maxed out at around 700 Hz. According to the Nyquist rule, we'd only be able to replicate frequencies around 350Hz, but even then I found it didnt' work too well, and the data was oftentimes terrible. To work around this, we sent the data in chunks of 500 Values one at a time to the MCU, which would then proccess the data after 500 Values were sent, which allowed us to sample at up to 5000Hz. Once in the MCU, we used the scipy library to calculate the forier transform of the signal, and using this, we chose the frequency with the largest magnitude to represent the note. We then calculated what note it would most accurately represent, and the difference between the ideal frequency and the frequency we observed.
-
-[Grand Challenge 2 Video Demo Part 1](https://youtube.com/shorts/5qEHsS09Kv4?feature=share)
-
-
-## Collaborators 
-
-Anthony Huynh: A18489020
-
-Aaron Chakma: A18088368
 
 
 

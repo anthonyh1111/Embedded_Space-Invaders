@@ -1,6 +1,3 @@
-"""
-@author: Ramsin Khoshabeh
-"""
 
 #Features
 # Live score updating 
